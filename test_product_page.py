@@ -1,7 +1,8 @@
 import pytest
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
+from .pages.base_page import BasePage
 
-"""
 links = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
          "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
          "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
@@ -14,7 +15,7 @@ links = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?pr
          "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"]
 
 @pytest.mark.parametrize("product", links)
-"""
+
 def test_guest_can_add_product_to_basket(browser): #, product: str - если используем parametrize то передаем
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
@@ -34,3 +35,12 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+@pytest.mark.new
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.go_to_basket()
+    page.should_be_not_product_in_basket()
+    page.should_message_that_basket_is_empty()

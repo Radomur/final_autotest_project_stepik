@@ -1,11 +1,13 @@
 from selenium.webdriver.common.by import By
 
-
-#class MainPageLocators():
-
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+    BASKET_HEADER_LINK = (By.CSS_SELECTOR, ".basket-mini > span > a[href*='basket']")
+
+class BasketPageLocators():
+    VALID_PRODUCT_IN_BASKET = (By.CSS_SELECTOR, ".basket-items")
+    BASKET_IS_EMPTY_MESSAGE = (By.XPATH, '//p[contains(text(), " Your basket is empty.")]')
 
 class LoginPageLocators():
     REGISTER_FORM = (By.CSS_SELECTOR, "#register_form")
