@@ -1,3 +1,7 @@
+import time
+import random
+import string
+import math
 from .locators import BasePageLocators
 from .locators import BasketPageLocators
 from selenium.common.exceptions import NoSuchElementException
@@ -5,7 +9,7 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import math
+
 
 class BasePage():
     def __init__(self, browser, url):
@@ -15,10 +19,10 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
-    def __init__(self, browser, url, timeout=30):
+    def __init__(self, browser, url, timeout=5):
         self.browser = browser
         self.url = url
-        #self.browser.implicitly_wait(timeout)
+        self.browser.implicitly_wait(timeout)
 
     def is_element_present(self, how, what):
         try:
@@ -66,3 +70,22 @@ class BasePage():
         except TimeoutException:
             return False
         return True
+
+    #Проверка что пользователь залогинен
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                 " probably unauthorised user"
+    #Генерируем пароль
+class GeneratingPassword():
+    def get_random_password(character_limit):
+        random_source = string.ascii_letters + string.digits + string.punctuation
+        password = random.choice(string.ascii_lowercase)
+        password += random.choice(string.ascii_uppercase)
+        password += random.choice(string.digits)
+        password += random.choice(string.punctuation)
+        for i in range(character_limit):
+            password += random.choice(random_source)
+        password_list = list(password)
+        random.SystemRandom().shuffle(password_list)
+        password = ''.join(password_list)
+        return password
