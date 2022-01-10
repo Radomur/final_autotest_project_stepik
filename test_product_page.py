@@ -6,25 +6,11 @@ from .pages.base_page import BasePage
 from .pages.login_page import LoginPage
 from .pages.base_page import GeneratingPassword
 
-"""
-links = ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer3",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer4",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer5",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer6",
-         pytest.param(7, marks=pytest.mark.xfail),
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
-         "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"]
-
-@pytest.mark.parametrize("product", links) """
-
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(browser): #, product: str - если используем parametrize то передаем
+def test_guest_can_add_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
-    page.open()                      # открываем страницу
+    page = ProductPage(browser, link)
+    page.open()                    
     page.checks_add_product_to_basket()
     page.should_not_be_success_message()
 

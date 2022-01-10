@@ -20,7 +20,6 @@ class LoginPage(BasePage):
 
     #Регистрация нового юзера
     def register_new_user(self, email, password):
-        #self.is_element_present(*BasePageLocators.LOGIN_LINK).click()
         time.sleep(3)
         self.browser.find_element(*LoginPageLocators.EMAIL_IN_REGISTER_FORM).send_keys(email)
         time.sleep(3)
